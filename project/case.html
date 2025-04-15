@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casemart - Customize Your Mobile Cover</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background: #f8f9fa; }
+    header { background: linear-gradient(135deg, #6C63FF, #928DFF); color: white; text-align: center; padding: 4rem 1rem; }
+    header h1 { font-size: 3.5rem; margin: 0; }
+    header p { font-size: 1.2rem; margin-top: 0.5rem; }
+    main { padding: 2rem; max-width: 800px; margin: auto; }
+    section { margin-bottom: 2rem; background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    label, select, input, textarea { display: block; width: 100%; margin-top: 0.5rem; padding: 0.75rem; font-size: 1rem; border-radius: 6px; border: 1px solid #ccc; }
+    button { padding: 1rem; background: #6C63FF; color: white; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer; margin-top: 1rem; }
+    button:hover { background: #5752d6; }
+    .qr { text-align: center; margin-top: 2rem; }
+    .admin { background: #f1f1f1; padding: 1rem; border-radius: 12px; }
+    .hidden { display: none; }
+    .preview-img { margin-top: 1rem; max-width: 100%; border: 2px dashed #ccc; border-radius: 12px; padding: 0.5rem; }
+  </style>
+  <script>
+    function goToCustomization() {
+      const phone = document.getElementById('phone-model').value;
+      if (!phone) {
+        alert("Please select a phone model first.");
+        return;
+      }
+      document.getElementById('select-phone').classList.add('hidden');
+      document.getElementById('customize').classList.remove('hidden');
+      document.getElementById('selected-phone').innerText = phone;
+    }function showPayment() {
+  document.getElementById('customize').classList.add('hidden');
+  document.getElementById('payment').classList.remove('hidden');
+}
+
+function previewImage(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('image-preview').src = e.target.result;
+      document.getElementById('image-preview').classList.remove('hidden');
+    }
+    reader.readAsDataURL(file);
+  }
+}
+
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Casemart</h1>
+    <p>Design your own mobile cover with style</p>
+  </header>  <main>
+    <section id="select-phone">
+      <h2>Step 1: Select Your Phone</h2>
+      <label for="phone-model">Choose Phone Model:</label>
+      <select id="phone-model">
+        <option value="">--Select your model--</option>
+        <option value="iPhone 14">iPhone 14</option>
+        <option value="Samsung Galaxy S22">Samsung Galaxy S22</option>
+        <option value="OnePlus 11">OnePlus 11</option>
+        <!-- Add more phone models here -->
+      </select>
+      <button onclick="goToCustomization()">Next</button>
+    </section><section id="customize" class="hidden">
+  <h2>Step 2: Customize Cover - <span id="selected-phone"></span></h2>
+  <label for="custom-text">Add Custom Text:</label>
+  <input type="text" id="custom-text" placeholder="Your name or quote" />
+
+  <label for="design-notes">Design Notes:</label>
+  <textarea id="design-notes" rows="4" placeholder="Mention colors, background or ideas"></textarea>
+
+  <label for="image-upload">Upload Image from Gallery:</label>
+  <input type="file" id="image-upload" accept="image/*" onchange="previewImage(event)" />
+  <img id="image-preview" class="preview-img hidden" alt="Image Preview" />
+
+  <button onclick="showPayment()">Proceed to Payment</button>
+</section>
+
+<section id="payment" class="hidden">
+  <h2>Step 3: Payment - Rs. 99</h2>
+  <div class="qr">
+    <img src="your-gpay-qr-code.png" alt="GPay QR Code" width="200" height="200" />
+    <p>Scan the QR with Google Pay to complete your order.</p>
+  </div>
+</section>
+
+<section class="admin">
+  <h3>Contact Our Team</h3>
+  <p>Message us on WhatsApp for any help:</p>
+  <ul>
+    <li><strong>Admin 1:</strong> +91-9876543210</li>
+    <li><strong>Admin 2:</strong> +91-9123456789</li>
+  </ul>
+</section>
+
+  </main>
+</body>
+</html>
